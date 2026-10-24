@@ -1,0 +1,37 @@
+Please analyze the following opinion.
+
+[Input Information]
+Text type: Public comments
+{context}
+Opinion heading: {speaker}
+
+[Original Text]
+{comment}
+
+Please determine according to the following steps.
+
+1. Determine whether it is possible to specify a concrete correspondence requested of the government regarding the policy or plan draft.
+2. If it can be specified, classify it as explicit_request or implicit_request.
+3. If there are multiple independent requests, divide them.
+4. If it cannot be specified, set request_class to no_request, has_concrete_request to false, and make requests an empty array.
+5. For each request, provide a short quotation from the original text as its basis.
+
+Please return content corresponding to the following JSON format.
+
+{
+  "request_class": "explicit_request|implicit_request|no_request",
+  "has_concrete_request": true,
+  "comment_summary": "Summary preserving main arguments, positions, requests, rationales, and important conditions",
+  "requests": [
+    {
+      "request_type": "explicit_request|implicit_request",
+      "request_category": "content|agenda|framing|justification|consideration|procedure",
+      "request_summary": "What is being requested of the government regarding the policy/plan draft",
+      "requested_action": "add|modify|remove|retain|consider|reframe|justify|disclose|improve_procedure|other",
+      "target_topic": "Relevant policy/plan issue",
+      "proposal_relation": "Relationship between the request and the policy/plan draft",
+      "request_quote": "Short quotation from the original text supporting the requested content",
+      "rationale_summary": "Reason for the request as indicated in the original text. If none, enter an empty string."
+    }
+  ]
+}

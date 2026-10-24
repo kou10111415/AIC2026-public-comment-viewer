@@ -1,0 +1,49 @@
+次の要求抽出結果を検証してください。
+
+【入力情報】
+テキスト種別: パブリックコメント
+{context}
+意見見出し: {speaker}
+
+【原文】
+{comment}
+
+【要求抽出結果】
+{extraction_result_json}
+
+候補要求の適格性だけでなく、原文中の要求の見落とし、過剰な分割、
+不適切な統合及び候補間の重複も確認してください。
+
+次のJSON形式に対応する内容を返してください。
+
+{
+  "judge_decision": "accepted|revised|confirmed_no_request|recovered_request|uncertain",
+  "final_request_class": "explicit_request|implicit_request|no_request|uncertain",
+  "has_valid_request": true,
+  "candidate_reviews": [
+    {
+      "candidate_index": 0,
+      "verdict": "accept|revise|reject",
+      "administrative_target": true,
+      "proposal_relation": true,
+      "identifiable_action": true,
+      "textual_grounding": true,
+      "no_unsupported_inference": true,
+      "atomic_and_nonredundant": true,
+      "reason": "判定理由"
+    }
+  ],
+  "final_requests": [
+    {
+      "request_type": "explicit_request|implicit_request",
+      "request_category": "content|agenda|framing|justification|consideration|procedure",
+      "request_summary": "政策案について行政に何を求めているか",
+      "requested_action": "add|modify|remove|retain|consider|reframe|justify|disclose|improve_procedure|other",
+      "target_topic": "政策案・計画案上の対象論点",
+      "proposal_relation": "要求と政策案・計画案との関係",
+      "request_quote": "要求内容の根拠となる原文中の短い引用",
+      "rationale_summary": "原文に示された要求理由。なければ空文字列"
+    }
+  ],
+  "judge_reason": "発言・意見全体についての判定理由"
+}

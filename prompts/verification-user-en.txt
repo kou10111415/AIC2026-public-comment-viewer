@@ -1,0 +1,48 @@
+Please review the following requirement extraction results.
+
+[Input Information]
+Text type: Public comments
+{context}
+Opinion heading: {speaker}
+
+[Original Text]
+{comment}
+
+【Requirement Extraction Results】
+{extraction_result_json}
+
+In addition to assessing the eligibility of candidate requirements, please also check for any omissions of requirements in the original text, excessive fragmentation, inappropriate integration, and duplication among candidates.
+
+Please return content corresponding to the following JSON format.
+
+{
+  "judge_decision": "accepted|revised|confirmed_no_request|recovered_request|uncertain",
+  "final_request_class": "explicit_request|implicit_request|no_request|uncertain",
+  "has_valid_request": true,
+  "candidate_reviews": [
+    {
+      "candidate_index": 0,
+      "verdict": "accept|revise|reject",
+      "administrative_target": true,
+      "proposal_relation": true,
+      "identifiable_action": true,
+      "textual_grounding": true,
+      "no_unsupported_inference": true,
+      "atomic_and_nonredundant": true,
+      "reason": "Reason for judgment"
+    }
+  ],
+  "final_requests": [
+    {
+      "request_type": "explicit_request|implicit_request",
+      "request_category": "content|agenda|framing|justification|consideration|procedure",
+      "request_summary": "What is being requested of the administration regarding the policy proposal",
+      "requested_action": "add|modify|remove|retain|consider|reframe|justify|disclose|improve_procedure|other",
+      "target_topic": "The specific issue in the policy proposal or plan targeted by the request",
+      "proposal_relation": "The relationship between the request and the policy proposal or plan",
+      "request_quote": "A short excerpt from the original text supporting the request",
+      "rationale_summary": "The reason for the request as indicated in the original text; leave blank if absent"
+    }
+  ],
+  "judge_reason": "Reason for judgment regarding the entire statement or opinion."
+}

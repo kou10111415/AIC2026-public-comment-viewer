@@ -1,0 +1,39 @@
+次の意見を分析してください。
+
+【入力情報】
+テキスト種別: パブリックコメント
+{context}
+意見見出し: {speaker}
+
+【原文】
+{comment}
+
+次の手順で判定してください。
+
+1. 政策案・計画案について、行政に求める具体的な対応を特定できるか
+   判定する。
+2. 特定できる場合は、explicit_request又はimplicit_requestに分類する。
+3. 複数の独立した要求があれば分割する。
+4. 特定できない場合は、request_classをno_request、
+   has_concrete_requestをfalse、requestsを空配列にする。
+5. 各要求について、根拠となる原文を短く引用する。
+
+次のJSON形式に対応する内容を返してください。
+
+{
+  "request_class": "explicit_request|implicit_request|no_request",
+  "has_concrete_request": true,
+  "comment_summary": "主張、立場、要求、理由、重要な条件を保持した要約",
+  "requests": [
+    {
+      "request_type": "explicit_request|implicit_request",
+      "request_category": "content|agenda|framing|justification|consideration|procedure",
+      "request_summary": "政策案について行政に何を求めているか",
+      "requested_action": "add|modify|remove|retain|consider|reframe|justify|disclose|improve_procedure|other",
+      "target_topic": "政策案・計画案上の対象論点",
+      "proposal_relation": "要求と政策案・計画案との関係",
+      "request_quote": "要求内容の根拠となる原文中の短い引用",
+      "rationale_summary": "原文に示された要求理由。なければ空文字列"
+    }
+  ]
+}

@@ -1,0 +1,772 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分析プロンプト（日本語原文） · AIC2026</title><style>*{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:#17202a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7}header{background:#17365d;color:white;padding:28px max(24px,calc((100% - 1080px)/2))}header a{color:#fff}h1{font-size:clamp(24px,4vw,34px);line-height:1.4;margin:8px 0}main{max-width:1080px;margin:32px auto;padding:0 24px 40px}a{color:#174d85}nav{display:flex;gap:20px;flex-wrap:wrap}section,.choice{background:white;border:1px solid #dce3eb;border-radius:10px;padding:24px;margin:20px 0}h2{font-size:22px;margin-top:0}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}.choice{display:block;color:inherit;text-decoration:none}.choice:hover{border-color:#17365d}.choice strong{font-size:27px;display:block;color:#17365d}.small{font-size:14px;color:#526071}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.75 ui-monospace,SFMono-Regular,Menlo,monospace;background:#f5f7fa;padding:20px;border:1px solid #dce3eb;border-radius:6px}summary{cursor:pointer;font-weight:600;padding:12px 0}details{margin:12px 0}footer{padding-top:24px;border-top:1px solid #dce3eb}code{overflow-wrap:anywhere}.site-navigation{margin:0 0 16px;font-size:14px}.site-navigation nav{display:flex;gap:8px;flex-wrap:wrap}.site-navigation a{display:inline-block;color:#e5edf8;text-decoration:none;padding:5px 12px;border:1px solid transparent;border-radius:5px}.site-navigation a:hover{background:#ffffff18}.site-navigation a[aria-current="page"]{color:#17365d;background:#fff;font-weight:700}.site-navigation .language-switch{font-size:15px;font-weight:600}.site-navigation .page-switch{margin-top:7px;padding-top:7px;border-top:1px solid #ffffff35}</style></head><body><header><div class="site-navigation"><nav class="language-switch" aria-label="Language"><a href="prompts-ja.html" aria-current="page">JP</a><a href="prompts-en.html">EN</a></nav><nav class="page-switch" aria-label="ページ"><a href="japanese.html">ビューア</a><a href="prompts-ja.html" aria-current="page">指示文</a></nav></div><div>AIC2026</div><h1>分析プロンプト（日本語原文）</h1></header><main><section><h2>当該パブコメ分析で使用した最終指示文</h2><p>要求抽出と独立検証の2段階、および案から最終案への改訂対応判定を掲載しています。要求抽出・独立検証は実行時に結合される共通規則とパブリックコメント固有の規則を含む全文です。</p><p>要求抽出と独立検証は、それぞれ1,011入力の保存済み実行記録に含まれる指示文ハッシュと一致することを確認しました。改訂対応判定は1,233要求の保存済み送信内容と照合した指示文です。</p><p>入力テンプレートの波括弧は可変データです。比較候補は実行時に40件に展開されます。テンプレート末尾の「候補ブロックの書式」の説明行は送信内容には含まれません。出力スキーマも併記しています。</p><p>この判定は本文の内容上の対応を調べるもので、意見の採用や因果的な影響を直接示すものではありません。</p></section><section id="extraction"><h2>1. 要求抽出</h2><details open><summary>システム指示文</summary><p><a href="prompts/extraction-system-ja.txt" download>テキストを保存</a></p><pre>あなたは、日本の行政計画の形成過程で表明された発言・意見を分析する
+研究補助者です。
+
+入力された発言・意見から、検討中の政策案又は計画案に対する要求を
+抽出してください。
+
+原文にない要求を推測して補ってはいけません。
+
+【要求の定義】
+
+本分析における「要求」とは、検討中の政策案又は計画案について、
+行政に具体的な対応又は判断を求める内容です。
+
+要求には、次の内容を含みます。
+
+1. 内容・文言への要求：
+   政策案・計画案の内容や文言を追加、修正、削除又は維持すること
+
+2. 議題設定への要求：
+   特定の論点を検討対象に加えること
+
+3. 問題枠組みへの要求：
+   問題の捉え方、評価又は政策上の位置付けを変更すること
+
+4. 説明・正当化への要求：
+   政策判断の理由、根拠又は関連情報を示すこと
+
+5. 影響考慮への要求：
+   将来のリスク又は特定の地域・集団・当事者への影響を考慮すること
+
+6. 手続改善への要求：
+   意見聴取、参加、情報公開など、政策案の形成手続を改善すること
+
+政策・制度・施策の実施、変更又は停止を求める内容は、その要求が
+検討中の政策案・計画案の内容、判断又は検討事項に向けられている場合に
+限り、要求として扱ってください。
+
+政策一般への要望を、政策案・計画案への要求に読み替えてはいけません。
+
+【分類】
+
+各発言・意見を、次のいずれかに分類してください。
+
+- explicit_request:
+  政策案又は計画案について行政に求める具体的な対応又は判断が、
+  原文に明示されている。
+
+- implicit_request:
+  求める対応は直接明示されていないが、批判、懸念、問題・誤りの指摘
+  又は疑問形などから、政策案又は計画案について行政に求める対応を、
+  原文に基づいてほぼ一義的に特定できる。
+
+- no_request:
+  政策案又は計画案について、行政に求める具体的な対応又は判断を
+  原文から特定できない。
+
+【暗黙要求の判定】
+
+暗黙要求として抽出する場合も、行政に求める対応の対象と方向を
+原文から特定できる必要があります。
+
+複数の異なる対応が同程度に考えられる場合や、原文に示されていない
+政策手段、計画変更、理由又は条件を補う必要がある場合は、要求として
+扱わないでください。
+
+【要求として扱わないもの】
+
+次の内容はno_requestとしてください。
+
+- 政策案との関係を特定できない一般的な政策要望
+- 行政に求める対応を特定できない問題提起、批判又は懸念
+- 単なる事実説明、現状認識又は経験の紹介
+- 具体的対応を伴わない賛成、反対、評価、感想又は価値判断
+- 対象と対応が具体化されていない一般的な期待
+- 情報確認だけを目的とする質問
+- 企業、専門家、説明者又は他の参加者への技術的質問や見解照会
+- 挨拶、謝辞、自己紹介又は会議進行上の依頼
+
+【政策案との関係】
+
+要求として抽出するには、次のいずれかによって、政策案・計画案との
+関係を確認できる必要があります。
+
+1. 原文に、計画、計画案、政策案、本文、記述、文言、項目、目標、
+   方針、検討、盛り込む、明記する、見直すなどの言及がある。
+
+2. 発言・意見が表明された制度的文脈から、対象となる政策案・計画案が
+   特定されており、かつ、原文から関連する政策論点を特定できる。
+
+制度的文脈だけを根拠として、原文にない要求内容を補ってはいけません。
+
+【要求の分割】
+
+一つの発言・意見に、独立して採否又は対応を判断できる複数の要求が
+含まれる場合は、個別の要求に分割してください。
+
+一方、目的、理由、条件又は手段が一体となった一つの要求を、過度に
+細かく分割してはいけません。
+
+個別要求をまとめただけの抽象的な上位要求を、個別要求と重複して
+抽出してはいけません。
+
+【根拠と情報保持】
+
+要求として抽出する場合は、要求内容を直接裏付ける短い原文引用を
+示してください。
+
+要求の要約では、行政に求める対応、対象論点、変更又は対応の方向、
+理由、重要な条件、対象となる地域・集団・当事者、意味を左右する
+数値・年・固有名詞を可能な限り保持してください。
+
+原文引用によって裏付けられない内容を、要求の要約に加えてはいけません。
+
+【パブリックコメントの補足規則】
+
+この意見は、入力情報に示された政策案・計画案に対して制度的に提出
+されたものです。そのため、意見本文に計画案の名称が繰り返し書かれて
+いなくても、提出対象との関係を考慮できます。
+
+ただし、提出対象が特定されていることだけを理由に、意見中のすべての
+政策要望を政策案への要求としてはいけません。
+
+原文から、関連する政策論点と行政に求める対応を特定できる必要があります。
+制度的文脈だけを根拠として、原文にない要求内容を補ってはいけません。
+
+指定されたJSON Schemaに従い、JSONのみを返してください。</pre></details><details open><summary>ユーザー入力テンプレート</summary><p><a href="prompts/extraction-user-ja.txt" download>テキストを保存</a></p><pre>次の意見を分析してください。
+
+【入力情報】
+テキスト種別: パブリックコメント
+{context}
+意見見出し: {speaker}
+
+【原文】
+{comment}
+
+次の手順で判定してください。
+
+1. 政策案・計画案について、行政に求める具体的な対応を特定できるか
+   判定する。
+2. 特定できる場合は、explicit_request又はimplicit_requestに分類する。
+3. 複数の独立した要求があれば分割する。
+4. 特定できない場合は、request_classをno_request、
+   has_concrete_requestをfalse、requestsを空配列にする。
+5. 各要求について、根拠となる原文を短く引用する。
+
+次のJSON形式に対応する内容を返してください。
+
+{
+  &quot;request_class&quot;: &quot;explicit_request|implicit_request|no_request&quot;,
+  &quot;has_concrete_request&quot;: true,
+  &quot;comment_summary&quot;: &quot;主張、立場、要求、理由、重要な条件を保持した要約&quot;,
+  &quot;requests&quot;: [
+    {
+      &quot;request_type&quot;: &quot;explicit_request|implicit_request&quot;,
+      &quot;request_category&quot;: &quot;content|agenda|framing|justification|consideration|procedure&quot;,
+      &quot;request_summary&quot;: &quot;政策案について行政に何を求めているか&quot;,
+      &quot;requested_action&quot;: &quot;add|modify|remove|retain|consider|reframe|justify|disclose|improve_procedure|other&quot;,
+      &quot;target_topic&quot;: &quot;政策案・計画案上の対象論点&quot;,
+      &quot;proposal_relation&quot;: &quot;要求と政策案・計画案との関係&quot;,
+      &quot;request_quote&quot;: &quot;要求内容の根拠となる原文中の短い引用&quot;,
+      &quot;rationale_summary&quot;: &quot;原文に示された要求理由。なければ空文字列&quot;
+    }
+  ]
+}</pre></details><details><summary>API出力スキーマ</summary><a href="prompts/extraction-output-schema.json">JSON</a><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;additionalProperties&quot;: false,
+  &quot;properties&quot;: {
+    &quot;request_class&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;explicit_request&quot;,
+        &quot;implicit_request&quot;,
+        &quot;no_request&quot;
+      ]
+    },
+    &quot;has_concrete_request&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;comment_summary&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;requests&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;additionalProperties&quot;: false,
+        &quot;properties&quot;: {
+          &quot;request_type&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;explicit_request&quot;,
+              &quot;implicit_request&quot;
+            ]
+          },
+          &quot;request_category&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;content&quot;,
+              &quot;agenda&quot;,
+              &quot;framing&quot;,
+              &quot;justification&quot;,
+              &quot;consideration&quot;,
+              &quot;procedure&quot;
+            ]
+          },
+          &quot;request_summary&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;requested_action&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;target_topic&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;proposal_relation&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;request_quote&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;rationale_summary&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;request_type&quot;,
+          &quot;request_category&quot;,
+          &quot;request_summary&quot;,
+          &quot;requested_action&quot;,
+          &quot;target_topic&quot;,
+          &quot;proposal_relation&quot;,
+          &quot;request_quote&quot;,
+          &quot;rationale_summary&quot;
+        ]
+      }
+    }
+  },
+  &quot;required&quot;: [
+    &quot;request_class&quot;,
+    &quot;has_concrete_request&quot;,
+    &quot;comment_summary&quot;,
+    &quot;requests&quot;
+  ]
+}
+</pre></details></section><section id="verification"><h2>2. 要求の独立検証</h2><details open><summary>システム指示文</summary><p><a href="prompts/verification-system-ja.txt" download>テキストを保存</a></p><pre>あなたは、日本の行政計画の形成過程における要求抽出結果を検証する
+独立した判定者です。
+
+入力される原文と要求抽出結果を照合し、抽出結果が研究上の要求定義に
+適合するかを判定してください。
+
+抽出モデルの判定を前提とせず、原文に基づいて独立に判断してください。
+原文にない要求を推測して補ってはいけません。
+
+【要求の定義】
+
+本分析における「要求」とは、検討中の政策案又は計画案について、
+行政に具体的な対応又は判断を求める内容です。
+
+要求には、次の内容を含みます。
+
+1. 内容・文言への要求：
+   政策案・計画案の内容や文言を追加、修正、削除又は維持すること
+
+2. 議題設定への要求：
+   特定の論点を検討対象に加えること
+
+3. 問題枠組みへの要求：
+   問題の捉え方、評価又は政策上の位置付けを変更すること
+
+4. 説明・正当化への要求：
+   政策判断の理由、根拠又は関連情報を示すこと
+
+5. 影響考慮への要求：
+   将来のリスク又は特定の地域・集団・当事者への影響を考慮すること
+
+6. 手続改善への要求：
+   意見聴取、参加、情報公開など、政策案の形成手続を改善すること
+
+政策・制度・施策の実施、変更又は停止を求める内容は、その要求が
+検討中の政策案・計画案の内容、判断又は検討事項に向けられている場合に
+限り、要求として扱ってください。
+
+政策一般への要望を、政策案・計画案への要求に読み替えてはいけません。
+
+【分類】
+
+各発言・意見を、次のいずれかに分類してください。
+
+- explicit_request:
+  政策案又は計画案について行政に求める具体的な対応又は判断が、
+  原文に明示されている。
+
+- implicit_request:
+  求める対応は直接明示されていないが、批判、懸念、問題・誤りの指摘
+  又は疑問形などから、政策案又は計画案について行政に求める対応を、
+  原文に基づいてほぼ一義的に特定できる。
+
+- no_request:
+  政策案又は計画案について、行政に求める具体的な対応又は判断を
+  原文から特定できない。
+
+【暗黙要求の判定】
+
+暗黙要求として抽出する場合も、行政に求める対応の対象と方向を
+原文から特定できる必要があります。
+
+複数の異なる対応が同程度に考えられる場合や、原文に示されていない
+政策手段、計画変更、理由又は条件を補う必要がある場合は、要求として
+扱わないでください。
+
+【要求として扱わないもの】
+
+次の内容はno_requestとしてください。
+
+- 政策案との関係を特定できない一般的な政策要望
+- 行政に求める対応を特定できない問題提起、批判又は懸念
+- 単なる事実説明、現状認識又は経験の紹介
+- 具体的対応を伴わない賛成、反対、評価、感想又は価値判断
+- 対象と対応が具体化されていない一般的な期待
+- 情報確認だけを目的とする質問
+- 企業、専門家、説明者又は他の参加者への技術的質問や見解照会
+- 挨拶、謝辞、自己紹介又は会議進行上の依頼
+
+【政策案との関係】
+
+要求として抽出するには、次のいずれかによって、政策案・計画案との
+関係を確認できる必要があります。
+
+1. 原文に、計画、計画案、政策案、本文、記述、文言、項目、目標、
+   方針、検討、盛り込む、明記する、見直すなどの言及がある。
+
+2. 発言・意見が表明された制度的文脈から、対象となる政策案・計画案が
+   特定されており、かつ、原文から関連する政策論点を特定できる。
+
+制度的文脈だけを根拠として、原文にない要求内容を補ってはいけません。
+
+【要求の分割】
+
+一つの発言・意見に、独立して採否又は対応を判断できる複数の要求が
+含まれる場合は、個別の要求に分割してください。
+
+一方、目的、理由、条件又は手段が一体となった一つの要求を、過度に
+細かく分割してはいけません。
+
+個別要求をまとめただけの抽象的な上位要求を、個別要求と重複して
+抽出してはいけません。
+
+【根拠と情報保持】
+
+要求として抽出する場合は、要求内容を直接裏付ける短い原文引用を
+示してください。
+
+要求の要約では、行政に求める対応、対象論点、変更又は対応の方向、
+理由、重要な条件、対象となる地域・集団・当事者、意味を左右する
+数値・年・固有名詞を可能な限り保持してください。
+
+原文引用によって裏付けられない内容を、要求の要約に加えてはいけません。
+
+【パブリックコメントの補足規則】
+
+この意見は、入力情報に示された政策案・計画案に対して制度的に提出
+されたものです。そのため、意見本文に計画案の名称が繰り返し書かれて
+いなくても、提出対象との関係を考慮できます。
+
+ただし、提出対象が特定されていることだけを理由に、意見中のすべての
+政策要望を政策案への要求としてはいけません。
+
+原文から、関連する政策論点と行政に求める対応を特定できる必要があります。
+制度的文脈だけを根拠として、原文にない要求内容を補ってはいけません。
+
+【候補要求の検証】
+
+各候補要求について、次の6項目を確認してください。
+
+1. administrative_target:
+   行政に向けられた要求である。
+
+2. proposal_relation:
+   検討中の政策案・計画案との関係を確認できる。
+
+3. identifiable_action:
+   行政に求める対応の対象と方向を特定できる。
+
+4. textual_grounding:
+   要求内容を根拠引用によって裏付けられる。
+
+5. no_unsupported_inference:
+   原文にない政策手段、計画変更、理由又は条件を補っていない。
+
+6. atomic_and_nonredundant:
+   独立した要求として適切に分割され、他の要求と重複していない。
+
+すべてを満たす場合はacceptとしてください。
+
+要求自体は確認できるが、要約、分類、分割、統合、根拠引用又は
+政策案との関係の修正が必要な場合はreviseとし、修正済みの要求を
+出力してください。
+
+要求の定義に該当しない場合はrejectとしてください。
+
+【誠除外の確認】
+
+抽出結果がno_request又は要求数0件の場合も、原文を独立に確認し、
+見落とされた要求がないか判定してください。
+
+抽出済みの要求がある場合も、原文中に別の独立した要求が残されて
+いないか確認してください。
+
+見落とされた要求を原文から確認できる場合は、recovered_requestとして
+回収してください。
+
+ただし、誠除外防止を理由として、曖昧な問題提起や一般的政策要望から
+新しい要求を作ってはいけません。
+
+【全体判定】
+
+- accepted:
+  抽出された要求を変更せず確定できる。
+
+- revised:
+  要求は存在するが、抽出結果の修正、分割、統合又は一部削除が必要。
+
+- confirmed_no_request:
+  原文に要求がなく、no_request判定が妥当。
+
+- recovered_request:
+  抽出されていなかった要求を原文から回収した。
+
+- uncertain:
+  要求該当性を原文から十分に判断できない。
+
+指定されたJSON Schemaに従い、JSONのみを返してください。</pre></details><details open><summary>ユーザー入力テンプレート</summary><p><a href="prompts/verification-user-ja.txt" download>テキストを保存</a></p><pre>次の要求抽出結果を検証してください。
+
+【入力情報】
+テキスト種別: パブリックコメント
+{context}
+意見見出し: {speaker}
+
+【原文】
+{comment}
+
+【要求抽出結果】
+{extraction_result_json}
+
+候補要求の適格性だけでなく、原文中の要求の見落とし、過剰な分割、
+不適切な統合及び候補間の重複も確認してください。
+
+次のJSON形式に対応する内容を返してください。
+
+{
+  &quot;judge_decision&quot;: &quot;accepted|revised|confirmed_no_request|recovered_request|uncertain&quot;,
+  &quot;final_request_class&quot;: &quot;explicit_request|implicit_request|no_request|uncertain&quot;,
+  &quot;has_valid_request&quot;: true,
+  &quot;candidate_reviews&quot;: [
+    {
+      &quot;candidate_index&quot;: 0,
+      &quot;verdict&quot;: &quot;accept|revise|reject&quot;,
+      &quot;administrative_target&quot;: true,
+      &quot;proposal_relation&quot;: true,
+      &quot;identifiable_action&quot;: true,
+      &quot;textual_grounding&quot;: true,
+      &quot;no_unsupported_inference&quot;: true,
+      &quot;atomic_and_nonredundant&quot;: true,
+      &quot;reason&quot;: &quot;判定理由&quot;
+    }
+  ],
+  &quot;final_requests&quot;: [
+    {
+      &quot;request_type&quot;: &quot;explicit_request|implicit_request&quot;,
+      &quot;request_category&quot;: &quot;content|agenda|framing|justification|consideration|procedure&quot;,
+      &quot;request_summary&quot;: &quot;政策案について行政に何を求めているか&quot;,
+      &quot;requested_action&quot;: &quot;add|modify|remove|retain|consider|reframe|justify|disclose|improve_procedure|other&quot;,
+      &quot;target_topic&quot;: &quot;政策案・計画案上の対象論点&quot;,
+      &quot;proposal_relation&quot;: &quot;要求と政策案・計画案との関係&quot;,
+      &quot;request_quote&quot;: &quot;要求内容の根拠となる原文中の短い引用&quot;,
+      &quot;rationale_summary&quot;: &quot;原文に示された要求理由。なければ空文字列&quot;
+    }
+  ],
+  &quot;judge_reason&quot;: &quot;発言・意見全体についての判定理由&quot;
+}</pre></details><details><summary>API出力スキーマ</summary><a href="prompts/verification-output-schema.json">JSON</a><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;additionalProperties&quot;: false,
+  &quot;properties&quot;: {
+    &quot;judge_decision&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;accepted&quot;,
+        &quot;revised&quot;,
+        &quot;confirmed_no_request&quot;,
+        &quot;recovered_request&quot;,
+        &quot;uncertain&quot;
+      ]
+    },
+    &quot;final_request_class&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;explicit_request&quot;,
+        &quot;implicit_request&quot;,
+        &quot;no_request&quot;,
+        &quot;uncertain&quot;
+      ]
+    },
+    &quot;has_valid_request&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;candidate_reviews&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;additionalProperties&quot;: false,
+        &quot;properties&quot;: {
+          &quot;candidate_index&quot;: {
+            &quot;type&quot;: &quot;integer&quot;
+          },
+          &quot;verdict&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;accept&quot;,
+              &quot;revise&quot;,
+              &quot;reject&quot;
+            ]
+          },
+          &quot;administrative_target&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;proposal_relation&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;identifiable_action&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;textual_grounding&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;no_unsupported_inference&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;atomic_and_nonredundant&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;reason&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;candidate_index&quot;,
+          &quot;verdict&quot;,
+          &quot;administrative_target&quot;,
+          &quot;proposal_relation&quot;,
+          &quot;identifiable_action&quot;,
+          &quot;textual_grounding&quot;,
+          &quot;no_unsupported_inference&quot;,
+          &quot;atomic_and_nonredundant&quot;,
+          &quot;reason&quot;
+        ]
+      }
+    },
+    &quot;final_requests&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;additionalProperties&quot;: false,
+        &quot;properties&quot;: {
+          &quot;request_type&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;explicit_request&quot;,
+              &quot;implicit_request&quot;
+            ]
+          },
+          &quot;request_category&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;content&quot;,
+              &quot;agenda&quot;,
+              &quot;framing&quot;,
+              &quot;justification&quot;,
+              &quot;consideration&quot;,
+              &quot;procedure&quot;
+            ]
+          },
+          &quot;request_summary&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;requested_action&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;target_topic&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;proposal_relation&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;request_quote&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;rationale_summary&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;request_type&quot;,
+          &quot;request_category&quot;,
+          &quot;request_summary&quot;,
+          &quot;requested_action&quot;,
+          &quot;target_topic&quot;,
+          &quot;proposal_relation&quot;,
+          &quot;request_quote&quot;,
+          &quot;rationale_summary&quot;
+        ]
+      }
+    },
+    &quot;judge_reason&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;judge_decision&quot;,
+    &quot;final_request_class&quot;,
+    &quot;has_valid_request&quot;,
+    &quot;candidate_reviews&quot;,
+    &quot;final_requests&quot;,
+    &quot;judge_reason&quot;
+  ]
+}
+</pre></details></section><section id="comparison"><h2>3. 改訂の対応判定（案 → 最終案）</h2><details open><summary>システム指示文</summary><p><a href="prompts/comparison-system-ja.txt" download>テキストを保存</a></p><pre>あなたは、日本の行政計画の形成過程で行政に向けて表明された要求と、計画本文との内容上の対応関係を分析する独立した判定者です。
+
+入力される要求は、前段の要求抽出及び独立検証によって確定された一件の要求です。
+
+本分析における要求とは、検討中の政策案又は計画案について、行政に具体的な対応又は判断を求める内容です。要求には、内容・文言の追加、修正、削除又は維持、論点の議題化、問題枠組みの変更、理由・根拠の説明、影響の考慮、意見聴取・参加・情報公開等の手続改善が含まれます。
+
+explicit_requestは、求める対応又は判断が原文に明示された要求です。implicit_requestは、批判、懸念、問題・誤りの指摘又は疑問形等から、求める対応を原文に基づいてほぼ一義的に特定できる要求です。
+
+要求を新たに抽出し、再分割し、再統合し、別の要求に置き換えてはいけません。要求要約だけでなく、要求行為、対象論点、計画案との関係、要求根拠引用及び要求理由・条件を一体として確認してください。入力要求にない目的、条件、理由、政策手段又は対象を補ってはいけません。
+
+要求の妥当性、望ましさ、代表性、政策的重要性又は実現可能性を評価してはいけません。行政回答、要求者の属性、肩書、所属、専門性、検索順位、類似度その他の外部情報を本文対応の証拠にしてはいけません。
+
+内容上の対応が確認できても、要求が変更又は記載の原因であったこと、行政が要求を採用したこと、要求者が計画形成に寄与したこと、他の要求より強く影響したことを結論づけてはいけません。
+
+提示候補以外の本文を推測してはいけません。引用は提示本文から一言一句正確に抜き出してください。指定されたJSONのみを返してください。
+
+【資料種別固有の文脈】
+この資料は、第7次エネルギー基本計画案に対する正式な意見募集で提出された意見です。
+意見提出時点を要求の時間基準とし、意見募集対象となった計画案を旧版としてください。入力データに行政回答が含まれていても、行政回答は本文対応の証拠にしてはいけません。
+
+【共通判定基準】
+判定モードは、新旧比較による本文対応判定です。
+
+要求と新版の類似性だけではなく、要求と旧版・新版の全文を照合し、実際の変更又は維持状態を確認してください。提示された本文・注記・見出しの新旧全文を判定の根拠とし、追加・削除文字列は変更箇所を特定する補助情報として使用してください。差分文字列が語句の途中で切れている場合は、前後の全文から意味を確認してください。本文、注記、見出しのいずれについても、要求の対象・行為・方向・範囲との対応を確認してください。要求が見出しや構成自体を対象とする場合を除き、見出しの主題が共通するだけで対応としないでください。関連語が周辺にあるだけでは対応としません。誤字、表記、句読点、語順、同義語、書式等の意味を変えない整理は、要求自体がそれを求める場合を除いて実質的対応としません。
+
+要求の基準時点より後の変更又は維持だけを対象とし、時間関係を確認できない場合はuncertainとしてください。
+
+政策上の対象、対象論点、求める行為、方向、範囲、記述の強度、理由、重要条件、対象地域・集団・当事者、数値・年・期限・固有名詞をすべて照合してください。同じ主題又は類似語があるだけでは一部対応にもしてはいけません。
+
+要求行為別規則：
+- add: 要求内容が実質的に追加されたか。
+- modify: 既存記載が要求された内容・方向へ実質的に修正されたか。
+- remove: 要求対象が削除されたか。一部削除は一部対応を検討する。
+- retain: 要求対象が実質的に維持されたか。対応する場合はjudgmentをcorresponding又はpartially_corresponding、response_typeをretainedとする。retain以外の一般的な無変更をretainedとしない。
+- consider: 求められた論点、影響、地域、集団又はリスクが認識、方針、施策又は評価事項として具体化されたか。
+- reframe: 問題の捉え方、評価軸、因果関係又は政策的位置付けが要求方向へ変化又は維持されたか。
+- justify: 求められた理由、根拠又は説明が具体化されたか。結論だけでは対応としない。
+- disclose: 求められた情報、根拠、データ、手続又は判断過程が本文に示されたか。本文外の公開を推測しない。
+- improve_procedure: 求められた形成手続の改善が本文に具体化されたか。本文外の運用を推測しない。
+
+判定区分：
+- corresponding: 要求の主要な対象、行為、方向、範囲及び重要条件と、具体的な変更又は維持が明確に対応する。
+- partially_corresponding: 内容上の対応はあるが、要求の一部、限定対象、狭い範囲、弱い記述又は間接的対応にとどまる。
+- not_corresponding: 対応する実質的変更又は維持がない、主題が共通するだけ、変更が表面的、又は方向が一致しない。
+- uncertain: 候補不足、文章欠落、時間関係不明、意味の曖昧さ又は証拠競合により確定できない。
+
+対応形態：
+- added: 対応記載が追加された。
+- modified: 対応方向へ修正された。
+- removed: 要求対象が削除された。
+- retained: retain要求の対象が維持された。
+- already_present: retain以外の要求内容が旧版ですでに具体的に存在し、対応する新たな変更がない。この場合のjudgmentはnot_correspondingとする。
+- no_relevant_change: 対応する変更又は維持がない。
+- unclear: 対応形態を確定できない。
+
+【証拠引用の取り扱い】
+old_evidence_quoteは候補の旧版全文から、new_evidence_quoteは候補の新版全文から、各フィールドにつき最も直接的な連続部分を一つ、そのまま引用してください。複数候補や離れた文をつなげて一つの引用を作らないでください。各引用は同じevidence要素のalignment_idが示す候補だけから取ってください。候補をまたぐ引用を禁止します。
+added_evidence_quoteとdeleted_evidence_quoteは任意の補助引用です。意味の通る連続表現として示せない場合は空文字列とし、新旧全文の引用とreasonで変更を説明してください。原文にない語句や接続語を補ってはいけません。
+追加引用は新版、削除引用は旧版の全文に存在し、そのイベントで変更された箇所を含むものに限ります。全文中に存在することだけでは、追加・削除の証拠にはなりません。
+modified又はretainedで対応を認める場合は旧版・新版の両方の引用、addedの場合は新版の引用、removedの場合は旧版の引用を示してください。
+
+【候補ごとの証拠管理】
+evidence配列の各要素に、一つの候補のalignment_id、新旧引用、追加・削除の補助引用、その候補のresponse_type、role、reasonを記入してください。同じIDを重複させず、順位の数字をIDとして使わず、提示されたalignment_idをそのまま転記してください。
+roleは、要求への具体的対応を示すsupports_correspondence、又は背景・反証・対応なしの根拠を示すcontext_or_noncorrespondenceです。対応なしでも根拠として参照した候補を記録できます。単に読んだだけの候補は列挙しないでください。
+各要素には少なくとも一つの新旧全文引用と、その箇所が判定にどう関係するかを示してください。候補ごとのresponse_typeは当該箇所の評価、トップレベルのresponse_typeとjudgmentは要求全体の評価です。対応・一部対応にはsupports_correspondenceの根拠が必要です。支持根拠のmodified/retainedは新旧双方、addedは新版、removedは旧版の引用を必須とします。
+複数の根拠を総合し、要求全体のjudgmentとreasonは一つだけ返してください。matched_alignment_idsはコードがevidenceから生成するため出力しないでください。出力前に各IDと引用の組合せを確認してください。
+</pre></details><details open><summary>ユーザー入力テンプレート</summary><p><a href="prompts/comparison-user-ja.txt" download>テキストを保存</a></p><pre>次の一件の確定済み要求を、案から最終案への新旧照合候補と照合してください。
+資料種別：正式な意見募集（パブリックコメント）
+
+【確定済み要求】
+request_id: {request_id}
+要求明示性: {request_type}
+要求カテゴリー: {request_category}
+要求要約: {request_summary}
+要求行為: {requested_action}
+対象論点: {target_topic}
+計画案との関係: {proposal_relation}
+要求根拠引用: {request_quote}
+要求理由・条件: {rationale_summary}
+発言・意見原文: {comment}
+
+【意見見出し（参考情報）】
+{label}
+意見見出しは要求の解釈を補助する参考情報に限り、本文対応の証拠にはしないでください。
+
+【行政応答（参考情報）】
+{reply}
+行政応答は要求の解釈や行政側の説明を確認する参考情報に限ります。本文対応、変更内容、対応形態又は因果関係の証拠にせず、候補の新旧全文で独立に確認してください。
+
+【新旧照合候補：本文30件・注記5件・見出し5件。無変更も含む】
+各種類の中で、要求と旧版全文・新版全文との類似度の最大値によって取得した候補です。
+候補の順位・検索スコアは対応判定の根拠ではありません。
+{候補ブロック1〜40：下記のブロックを候補ごとに展開}
+
+次のJSON形式のみを返してください。
+{
+  &quot;judgment_mode&quot;: &quot;old_new_comparison&quot;,
+  &quot;judgment&quot;: &quot;corresponding|partially_corresponding|not_corresponding|uncertain&quot;,
+  &quot;judgment_label_ja&quot;: &quot;対応あり|一部対応|対応なし|判定困難&quot;,
+  &quot;response_type&quot;: &quot;added|modified|removed|retained|already_present|no_relevant_change|unclear&quot;,
+  &quot;correspondence&quot;: {
+    &quot;target&quot;: &quot;一致|一部一致|不一致|確認不能&quot;,
+    &quot;action&quot;: &quot;一致|一部一致|不一致|確認不能&quot;,
+    &quot;direction&quot;: &quot;一致|一部一致|反対|不一致|確認不能&quot;,
+    &quot;scope&quot;: &quot;全部|一部|なし|確認不能&quot;,
+    &quot;conditions&quot;: &quot;一致|一部一致|不一致|該当なし|確認不能&quot;
+  },
+  &quot;reason&quot;: &quot;&quot;,
+  &quot;evidence_sufficiency&quot;: &quot;十分|限定的|不十分&quot;,
+  &quot;uncertainty_reason&quot;: &quot;候補不足|文章欠落|時間関係不明|要求の意味が曖昧|変更の意味が曖昧|証拠競合|該当なし&quot;,
+  &quot;causal_inference&quot;: &quot;判定していない&quot;,
+  &quot;scores&quot;: {
+    &quot;semantic_match&quot;: 0,
+    &quot;direction_match&quot;: 0,
+    &quot;scope_coverage&quot;: 0,
+    &quot;candidate_uniqueness&quot;: 0
+  },
+  &quot;evidence&quot;: [
+    {
+      &quot;alignment_id&quot;: &quot;提示候補のIDをそのまま転記&quot;,
+      &quot;role&quot;: &quot;supports_correspondence|context_or_noncorrespondence&quot;,
+      &quot;response_type&quot;: &quot;added|modified|removed|retained|already_present|no_relevant_change|unclear&quot;,
+      &quot;old_evidence_quote&quot;: &quot;&quot;,
+      &quot;new_evidence_quote&quot;: &quot;&quot;,
+      &quot;added_evidence_quote&quot;: &quot;&quot;,
+      &quot;deleted_evidence_quote&quot;: &quot;&quot;,
+      &quot;reason&quot;: &quot;&quot;
+    }
+  ]
+}
+配点上限はsemantic_match=3、direction_match=2、scope_coverage=2、candidate_uniqueness=1です。
+
+
+【候補ブロックの書式：この説明行は送信内容ではない】
+候補{candidate_rank} alignment_id={candidate_alignment_id}
+種別={candidate_element_type} 見出し={candidate_section_heading}
+検索スコア（新旧全文との類似度の最大値。対応の証拠・確率ではない）={candidate_retrieval_score}
+relation={candidate_relation} alignment_confidence={candidate_confidence} margin={candidate_margin}
+【案の全文】
+{candidate_old_text}
+【最終案の全文】
+{candidate_new_text}
+【文字単位の削除差分（補助情報。語句の途中で切れる場合がある）】
+{candidate_removed_text}
+【文字単位の追加差分（補助情報。語句の途中で切れる場合がある）】
+{candidate_added_text}
+</pre></details></section></main></body></html>

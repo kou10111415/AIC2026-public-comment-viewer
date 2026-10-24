@@ -1,0 +1,79 @@
+Please compare the following one finalized request against the old and new candidate segments extracted from draft to final plan versions.
+Document type: Official public comment.
+
+[Finalized Request]
+request_id: {request_id}
+request_type: {request_type}
+request_category: {request_category}
+request_summary: {request_summary}
+requested_action: {requested_action}
+target_topic: {target_topic}
+proposal_relation: {proposal_relation}
+request_quote: {request_quote}
+rationale_summary: {rationale_summary}
+original_comment: {comment}
+
+[Opinion Heading (Reference Only)]
+{label}
+Opinion headings are for supplementary interpretation only and should not be used as evidence of correspondence.
+
+[Administrative Response (Reference Only)]
+{reply}
+Administrative responses are for supporting interpretation or clarifying the administrative side’s position only, and must not be used as evidence of correspondence, content of changes, response type, or causality; independently confirm with the full old/new candidate text.
+
+[Candidate Segments for Old/New Comparison: 30 main text, 5 notes, 5 headings. Unchanged are also included.]
+From each type, candidates were selected by the highest similarity score with the request and the full text of the old/new version.
+Candidate rank and retrieval score are not evidence of correspondence.
+
+Please return only the following JSON.
+{
+  "judgment_mode": "old_new_comparison",
+  "judgment": "corresponding|partially_corresponding|not_corresponding|uncertain",
+  "judgment_label_ja": "対応あり|一部対応|対応なし|判定困難",
+  "response_type": "added|modified|removed|retained|already_present|no_relevant_change|unclear",
+  "correspondence": {
+    "target": "一致|一部一致|不一致|確認不能",
+    "action": "一致|一部一致|不一致|確認不能",
+    "direction": "一致|一部一致|反対|不一致|確認不能",
+    "scope": "全部|一部|なし|確認不能",
+    "conditions": "一致|一部一致|不一致|該当なし|確認不能"
+  },
+  "reason": "",
+  "evidence_sufficiency": "十分|限定的|不十分",
+  "uncertainty_reason": "候補不足|文章欠落|時間関係不明|要求の意味が曖昧|変更の意味が曖昧|証拠競合|該当なし",
+  "causal_inference": "判定していない",
+  "scores": {
+    "semantic_match": 0,
+    "direction_match": 0,
+    "scope_coverage": 0,
+    "candidate_uniqueness": 0
+  },
+  "evidence": [
+    {
+      "alignment_id": "Copy candidate's alignment_id exactly",
+      "role": "supports_correspondence|context_or_noncorrespondence",
+      "response_type": "added|modified|removed|retained|already_present|no_relevant_change|unclear",
+      "old_evidence_quote": "",
+      "new_evidence_quote": "",
+      "added_evidence_quote": "",
+      "deleted_evidence_quote": "",
+      "reason": ""
+    }
+  ]
+}
+Maximum scores: semantic_match=3, direction_match=2, scope_coverage=2, candidate_uniqueness=1.
+
+
+[Candidate Block Format: this description line is not part of the data sent]
+Candidate {candidate_rank} alignment_id={candidate_alignment_id}
+Type={candidate_element_type} Heading={candidate_section_heading}
+Retrieval score (maximum similarity with old/new full text, not evidence or probability of correspondence)={candidate_retrieval_score}
+relation={candidate_relation} alignment_confidence={candidate_confidence} margin={candidate_margin}
+[Full text of Draft]
+{candidate_old_text}
+[Full text of Final Draft]
+{candidate_new_text}
+[Character-level deletion difference (supplementary; may be cut mid-word)]
+{candidate_removed_text}
+[Character-level addition difference (supplementary; may be cut mid-word)]
+{candidate_added_text}

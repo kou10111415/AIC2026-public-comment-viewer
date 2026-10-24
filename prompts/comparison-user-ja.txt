@@ -1,0 +1,80 @@
+次の一件の確定済み要求を、案から最終案への新旧照合候補と照合してください。
+資料種別：正式な意見募集（パブリックコメント）
+
+【確定済み要求】
+request_id: {request_id}
+要求明示性: {request_type}
+要求カテゴリー: {request_category}
+要求要約: {request_summary}
+要求行為: {requested_action}
+対象論点: {target_topic}
+計画案との関係: {proposal_relation}
+要求根拠引用: {request_quote}
+要求理由・条件: {rationale_summary}
+発言・意見原文: {comment}
+
+【意見見出し（参考情報）】
+{label}
+意見見出しは要求の解釈を補助する参考情報に限り、本文対応の証拠にはしないでください。
+
+【行政応答（参考情報）】
+{reply}
+行政応答は要求の解釈や行政側の説明を確認する参考情報に限ります。本文対応、変更内容、対応形態又は因果関係の証拠にせず、候補の新旧全文で独立に確認してください。
+
+【新旧照合候補：本文30件・注記5件・見出し5件。無変更も含む】
+各種類の中で、要求と旧版全文・新版全文との類似度の最大値によって取得した候補です。
+候補の順位・検索スコアは対応判定の根拠ではありません。
+{候補ブロック1〜40：下記のブロックを候補ごとに展開}
+
+次のJSON形式のみを返してください。
+{
+  "judgment_mode": "old_new_comparison",
+  "judgment": "corresponding|partially_corresponding|not_corresponding|uncertain",
+  "judgment_label_ja": "対応あり|一部対応|対応なし|判定困難",
+  "response_type": "added|modified|removed|retained|already_present|no_relevant_change|unclear",
+  "correspondence": {
+    "target": "一致|一部一致|不一致|確認不能",
+    "action": "一致|一部一致|不一致|確認不能",
+    "direction": "一致|一部一致|反対|不一致|確認不能",
+    "scope": "全部|一部|なし|確認不能",
+    "conditions": "一致|一部一致|不一致|該当なし|確認不能"
+  },
+  "reason": "",
+  "evidence_sufficiency": "十分|限定的|不十分",
+  "uncertainty_reason": "候補不足|文章欠落|時間関係不明|要求の意味が曖昧|変更の意味が曖昧|証拠競合|該当なし",
+  "causal_inference": "判定していない",
+  "scores": {
+    "semantic_match": 0,
+    "direction_match": 0,
+    "scope_coverage": 0,
+    "candidate_uniqueness": 0
+  },
+  "evidence": [
+    {
+      "alignment_id": "提示候補のIDをそのまま転記",
+      "role": "supports_correspondence|context_or_noncorrespondence",
+      "response_type": "added|modified|removed|retained|already_present|no_relevant_change|unclear",
+      "old_evidence_quote": "",
+      "new_evidence_quote": "",
+      "added_evidence_quote": "",
+      "deleted_evidence_quote": "",
+      "reason": ""
+    }
+  ]
+}
+配点上限はsemantic_match=3、direction_match=2、scope_coverage=2、candidate_uniqueness=1です。
+
+
+【候補ブロックの書式：この説明行は送信内容ではない】
+候補{candidate_rank} alignment_id={candidate_alignment_id}
+種別={candidate_element_type} 見出し={candidate_section_heading}
+検索スコア（新旧全文との類似度の最大値。対応の証拠・確率ではない）={candidate_retrieval_score}
+relation={candidate_relation} alignment_confidence={candidate_confidence} margin={candidate_margin}
+【案の全文】
+{candidate_old_text}
+【最終案の全文】
+{candidate_new_text}
+【文字単位の削除差分（補助情報。語句の途中で切れる場合がある）】
+{candidate_removed_text}
+【文字単位の追加差分（補助情報。語句の途中で切れる場合がある）】
+{candidate_added_text}

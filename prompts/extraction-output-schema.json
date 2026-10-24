@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "request_class": {
+      "type": "string",
+      "enum": [
+        "explicit_request",
+        "implicit_request",
+        "no_request"
+      ]
+    },
+    "has_concrete_request": {
+      "type": "boolean"
+    },
+    "comment_summary": {
+      "type": "string"
+    },
+    "requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "request_type": {
+            "type": "string",
+            "enum": [
+              "explicit_request",
+              "implicit_request"
+            ]
+          },
+          "request_category": {
+            "type": "string",
+            "enum": [
+              "content",
+              "agenda",
+              "framing",
+              "justification",
+              "consideration",
+              "procedure"
+            ]
+          },
+          "request_summary": {
+            "type": "string"
+          },
+          "requested_action": {
+            "type": "string"
+          },
+          "target_topic": {
+            "type": "string"
+          },
+          "proposal_relation": {
+            "type": "string"
+          },
+          "request_quote": {
+            "type": "string"
+          },
+          "rationale_summary": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "request_type",
+          "request_category",
+          "request_summary",
+          "requested_action",
+          "target_topic",
+          "proposal_relation",
+          "request_quote",
+          "rationale_summary"
+        ]
+      }
+    }
+  },
+  "required": [
+    "request_class",
+    "has_concrete_request",
+    "comment_summary",
+    "requests"
+  ]
+}
